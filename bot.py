@@ -39,9 +39,7 @@ def generate_response(user_message):
 
 # Start command
 async def start(update: Update, context) -> None:
-    await update.message.reply_text("Hey! I'm Shruti, the bot that roasts and chats! "
-                                    "I don't hold back, and I will roast you if you ask for it! "
-                                    "Ready to chat?")
+    await update.message.reply_text("Hey! I'm Shruti, the bot that roasts and chats!")
 
 # Handle text messages
 async def handle_text(update: Update, context) -> None:
@@ -50,7 +48,7 @@ async def handle_text(update: Update, context) -> None:
     await update.message.reply_text(response)
 
 # Main function
-async def main():
+def main():
     try:
         # Make sure the TELEGRAM_BOT_TOKEN is available in environment variables
         if not TELEGRAM_BOT_TOKEN:
@@ -64,9 +62,9 @@ async def main():
         application.add_handler(CommandHandler("start", start))
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
-        # Run the bot with an increased timeout setting
-        await application.run_polling(timeout=20)  # Timeout set to 20 seconds
-    except TimedOut as e:  # Added colon here
+        # Run the bot
+        application.run_polling()  # Correctly starts and manages the event loop
+    except TimedOut as e:
         logger.error("TimedOut error: Telegram bot connection timed out.")
         print("Timeout error! Check your internet connection.")
     except Exception as e:
@@ -75,5 +73,4 @@ async def main():
 
 # Run the bot
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    main()
