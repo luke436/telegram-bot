@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 # Retrieve the keys from the environment variables
-openai.api_key = os.getenv("OPENAI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Function to generate response using OpenAI
 def generate_response(prompt):
